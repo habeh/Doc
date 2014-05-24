@@ -41,8 +41,9 @@ In the table of users that are members of the program is maintained.
 1-2-1: UserID ([numeric](18, 0) IDENTITY(1,1) NOT NULL)
 1-2-2: UserName ([nvarchar](100) COLLATE SQL_Latin1_General_CP1_CI_AS)
 1-2-3: UserEmail ([nvarchar](100) COLLATE SQL_Latin1_General_CP1_CI_AS)
-1-2-4: UserDateJoin ([nvarchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS)
-1-2-5: UserPicture ([nvarchar](100) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-2-4: UserPassword ([nvarchar](50) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-2-5: UserDateJoin ([nvarchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-2-6: UserPicture ([nvarchar](100) COLLATE SQL_Latin1_General_CP1_CI_AS)
 
 
 Description:
@@ -50,7 +51,8 @@ Description:
 1-2-1 : User identification information, including name and family
 1-2-2: Email address of the user
 1-2-3: Date of user registration 
-1-2-4: Users select their picture and address in this field can be stored images in this section.
+1-2-4: Password Needed For Login The User 
+1-2-5: Users select their picture and address in this field can be stored images in this section.
 
 ----------
 
