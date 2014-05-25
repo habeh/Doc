@@ -1,0 +1,185 @@
+In this episode of the program and its structure is defined in the database.
+The name of the application database:  Dbhabh
+
+1 - used in database tables:
+
+1.TbAppInfo
+
+2.TbUser
+
+3.TBMessage
+
+4.TbLike
+
+5.TbCommand
+
+6.TbContact
+
+7.TbCategoryMessage
+
+
+1 - 1: TbAppInfo
+
+The fields used in this table are as follows: 
+
+1-1-1: InfoId ([numeric](18, 0) IDENTITY(1,1) NOT NULL)
+1-1-2: InfoAppName ([nvarchar](100) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-1-3: InfoAppVersion ([nvarchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS )
+1-1-4: InfoEmail ([nvarchar](100) COLLATE SQL_Latin1_General_CP1_CI_AS )
+1-1-5: InfoWebSite ([nvarchar](100) COLLATE SQL_Latin1_General_CP1_CI_AS )
+
+
+Description:
+This table is stored in the program itself Information.
+
+---------
+
+1-2 : TbUser
+
+In the table of users that are members of the program is maintained.
+
+1-2-1: UserID ([numeric](18, 0) IDENTITY(1,1) NOT NULL)
+1-2-2: UserName ([nvarchar](100) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-2-3: UserEmail ([nvarchar](100) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-2-4: UserPassword ([nvarchar](50) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-2-5: UserDateJoin ([nvarchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-2-6: UserPicture ([nvarchar](100) COLLATE SQL_Latin1_General_CP1_CI_AS)
+
+
+Description:
+
+1-2-1 : User identification information, including name and family
+1-2-2: Email address of the user
+1-2-3: Date of user registration 
+1-2-4: Password Needed For Login The User 
+1-2-5: Users select their picture and address in this field can be stored images in this section.
+
+----------
+
+1-3 : TbMessage
+
+This table is stored in text messages sent from the user.
+
+1-3-1: MessageId ([numeric](18, 0) IDENTITY(1,1) NOT NULL)
+1-3-2: MessageCat ([numeric](18) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-3-3: MessageUserId ([numeric](18) COLLATE SQL_Latin1_General_CP1_CI_AS) 
+1-3-4: MessageMessage ([nvarchar](300) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-3-5: MessageDate ([nvarchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS)
+
+Description:
+
+1-3-2: Category Of the Message
+1-3-3: The user ID of the person who sent the text messages are stored.
+1-3-4: Text messages sent from users that the maximum is 300 characters.
+1-3-5: date to send text messages from users
+
+
+1-4: TbLike
+
+Likes do the members of any text messages are stored in this section
+
+1-4-1: LikeId ([numeric](18, 0) IDENTITY(1,1) NOT NULL)
+1-4-2: LikeMessageId ([numeric](18) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-4-3: LikeUserId ([numeric](18) COLLATE SQL_Latin1_General_CP1_CI_AS)
+
+Description:
+
+1-4-2: Liked the text messages ID
+1-4-3: The user ID that made Likes
+
+------------
+
+1-5: TbCommand
+
+Member Comments about outgoing text messages are stored in this table.
+
+1-5-1: CommandId ([numeric](18, 0) IDENTITY(1,1) NOT NULL)
+1-5-2: CommandUserID ([numeric](18) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-5-3: CommandMessageID ([numeric](18) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-5-4: CommandCommand ([nvarchar](100) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-5-5: CommandDate ([nvarchar](20) COLLATE SQL_Latin1_General_CP1_CI_AS)
+
+
+Description:
+
+1-5-2: Comments userId who has
+1-5-3: text messages ID in which the comment was made
+1-5-4: Comment text sent from a user
+1-5-5: Date and Time  post comments
+
+
+
+And
+
+
+1-6: TbContact
+
+In this table, users can  comments, criticisms, questions for the us to send your suggestions
+
+
+1-6-1: ContactID ([numeric](18, 0) IDENTITY(1,1) NOT NULL)
+1-6-2: ContaxtUserId ([numeric](18) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-6-3: ContaxtMessage ([nvarchar](1000) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-6-4: ContactDate ([nvarchar](20) COLLATE SQL_Latin1_General_CP1_CI_AS)
+1-6-5: ContactState ([numeric](1) COLLATE SQL_Latin1_General_CP1_CI_AS -   (State (seen or unseen))
+
+
+
+------------------------------------------------------------------------------------------------
+
+
+7- TbCategoryMessage
+
+Classified messages sent to save the banks and playback for users
+
+1-7-1: CategoryId ContactID ([numeric](18, 0) IDENTITY(1,1) NOT NULL)
+1-7-2: CategortName  ([nvarchar](1000) COLLATE SQL_Latin1_General_CP1_CI_AS) 
+
+
+-------------------------------
+
+
+
+
+To extract the information needed to write a view
+
+For example:
+
+1- All comments have been posted on text messageID=2
+
+
+SELECT     dbo.TbMessage.MessageId, dbo.TbMessage.MessageMessage, dbo.TbUser.UserName, dbo.TbCommand.CommandCommand
+FROM         dbo.TbCommand INNER JOIN
+                      dbo.TbMessage ON dbo.TbCommand.CommandMessageId = dbo.TbMessage.MessageId INNER JOIN
+                      dbo.TbUser ON dbo.TbCommand.CommandId = dbo.TbUser.UserId
+WHERE     (dbo.TbMessage.MessageId = 2)
+
+
+
+2- All Like Posted On text Message Id=1
+
+
+
+
+
+SELECT     dbo.TbMessage.MessageId, dbo.TbMessage.MessageMessage, dbo.TbUser.UserName, dbo.TbUser.UserId
+FROM         dbo.TbMessage INNER JOIN
+                      dbo.TbLike ON dbo.TbMessage.MessageId = dbo.TbLike.LikeMessageId INNER JOIN
+                      dbo.TbUser ON dbo.TbLike.LikeUserId = dbo.TbUser.UserId
+WHERE     (dbo.TbMessage.MessageId = 1)
+
+
+
+
+
+3- Select All Text Message Post By UserId=2
+
+SELECT     dbo.TbMessage.MessageUserId, dbo.TbUser.UserName, dbo.TbMessage.MessageMessage, dbo.TbMessage.MessageDate, dbo.TbUser.UserPicture, 
+                      dbo.TbUser.UserId, dbo.CategoryMessage.CategoryName
+FROM         dbo.TbUser INNER JOIN
+                      dbo.TbMessage ON dbo.TbUser.UserId = dbo.TbMessage.MessageUserId INNER JOIN
+                      dbo.CategoryMessage ON dbo.TbMessage.MessageCat = dbo.CategoryMessage.CategoryId
+WHERE     (dbo.TbMessage.MessageUserId = 2)
+
+
+and More. . .
